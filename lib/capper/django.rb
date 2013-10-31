@@ -4,6 +4,8 @@ after 'deploy:update_code', 'django:setup'
 
 before 'deploy:migrate', 'django:migrate'
 
+after "deploy:finalize_update", "django:collectstatic"
+
 namespace :django do
   desc "Generate django configuration and helpers"
   task :setup, :roles => :app, :except => { :no_release => true } do
@@ -30,5 +32,12 @@ namespace :django do
       end
 
     run "cd #{directory} && #{python} manage.py syncdb --migrate --noinput"
+  end
+
+  desc <<-DESC
+    Run the collectstatic task
+  DESC
+  task :collectstatic, :roles => :app, :except => { :no_release => true } do
+    run "cd #{directory} && #{python} manage.py collectstatic --noinput"
   end
 end
