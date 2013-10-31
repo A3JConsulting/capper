@@ -178,7 +178,7 @@ automatically (re)started during deploy and can be specified via
 django
 ------
 
-The django recipe provides setup and migrate tasks for Django.
+The django recipe provides setup, migrate and collectstatic tasks for Django.
 
 python
 ------
