@@ -1,5 +1,7 @@
 load "capper/python"
 
+_cset(:python_requirements_file, "requirements.txt")
+
 set(:python) { "#{bin_path}/python" }
 
 before "deploy:setup", "virtualenv:setup"
@@ -16,6 +18,6 @@ end
 
 namespace :pip do
   task :install do
-    run("#{bin_path}/pip install -q -E #{deploy_to} -r #{latest_release}/requirements.txt")
+    run("#{bin_path}/pip install -q -E #{deploy_to} -r #{latest_release}/#{python_requirements_file}")
   end
 end

@@ -247,6 +247,11 @@ The virtualenv recipe provides ``deploy:setup`` hooks for virtualenv support.
 In addition required Python libraries are installed via pip into this
 environment.
 
+The following configuration options are provided:
+
+``python_requirements_file``
+  Relative path to requirements file (default: requirements.txt)
+
 whenever
 --------
 
