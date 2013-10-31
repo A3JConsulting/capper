@@ -21,26 +21,40 @@ namespace :uwsgi do
     upload_template_file("uwsgi.sh",
                          uwsgi_script,
                          :mode => "0755")
-    upload_template_file("uwsgi.service",
-                         uwsgi_service,
-                         :mode => "0644")
-    systemctl "daemon-reload"
-    systemctl :enable, :uwsgi
+    if use_systemd
+      upload_template_file("uwsgi.service",
+                           uwsgi_service,
+                           :mode => "0644")
+      systemctl "daemon-reload"
+      systemctl :enable, :uwsgi
+    end
   end
 
   desc "Start uwsgi"
   task :start, :roles => :app, :except => { :no_release => true } do
-    systemctl :start, :uwsgi
+    if use_systemd
+      systemctl :start, :uwsgi
+    else
+      run "#{uwsgi_script} start"
+    end
   end
 
   desc "Stop uwsgi"
   task :stop, :roles => :app, :except => { :no_release => true } do
-    systemctl :stop, :uwsgi
+    if use_systemd
+      systemctl :stop, :uwsgi
+    else
+      run "#{uwsgi_script} start"
+    end
   end
 
   desc "Reload uwsgi"
   task :restart, :roles => :app, :except => { :no_release => true } do
-    systemctl :restart, :uwsgi
+    if use_systemd
+      systemctl :restart, :uwsgi
+    else
+      run "#{uwsgi_script} reload"
+    end
   end
 
   desc "Reload uwsgi"

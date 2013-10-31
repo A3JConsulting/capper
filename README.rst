@@ -89,6 +89,10 @@ Capper provides integration with a systemd user session running for the user
 that is being deployed to. Capper will upload service units and enable/start
 these accordingly.
 
+systemd is disabled by default, If you use systemd simply activate it like this::
+
+  set :use_systemd, true
+
 Recipes
 =======
 
