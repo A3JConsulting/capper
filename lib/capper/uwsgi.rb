@@ -44,7 +44,7 @@ namespace :uwsgi do
     if use_systemd
       systemctl :stop, :uwsgi
     else
-      run "#{uwsgi_script} start"
+      run "#{uwsgi_script} stop"
     end
   end
 
