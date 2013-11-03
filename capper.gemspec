@@ -1,11 +1,11 @@
 # -*- encoding: utf-8 -*-
 
 Gem::Specification.new do |s|
-  s.name = "capper"
+  s.name = "a3j-capper"
   s.version = "2.0.0"
-  s.authors = ["Benedikt Böhm"]
-  s.email = ["bb@xnull.de"]
-  s.homepage = "http://github.com/zenops/capper"
+  s.authors = ["Joel Bonander"]
+  s.email = ["jb@a3j.se"]
+  s.homepage = "http://github.com/A3JConsulting/capper"
   s.summary = %q{Capper is a collection of opinionated Capistrano recipes}
   s.description = %q{Capper is a collection of opinionated Capistrano recipes}
 
