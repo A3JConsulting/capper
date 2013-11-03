@@ -2,9 +2,9 @@
 _cset(:uwsgi_worker_processes, 4)
 
 # these cannot be overriden
-set(:uwsgi_script) { File.join(bin_path, "uwsgi") }
+set(:uwsgi_script) { File.join(bin_path, "uwsgictl") }
 set(:uwsgi_service) { File.join(units_path, "uwsgi.service") }
-set(:uwsgi_config) { File.join(config_path, "uwsgi.xml") }
+set(:uwsgi_config) { File.join(config_path, "uwsgi.yaml") }
 set(:uwsgi_pidfile) { File.join(pid_path, "uwsgi.pid") }
 
 after "deploy:update_code", "uwsgi:setup"
@@ -15,7 +15,7 @@ after "deploy:stop", "uwsgi:stop"
 namespace :uwsgi do
   desc "Generate uwsgi configuration files"
   task :setup, :roles => :app, :except => { :no_release => true } do
-    upload_template_file("uwsgi.xml",
+    upload_template_file("uwsgi.yaml",
                          uwsgi_config,
                          :mode => "0644")
     upload_template_file("uwsgi.sh",
@@ -48,7 +48,7 @@ namespace :uwsgi do
     end
   end
 
-  desc "Reload uwsgi"
+  desc "Restart uwsgi"
   task :restart, :roles => :app, :except => { :no_release => true } do
     if use_systemd
       systemctl :restart, :uwsgi

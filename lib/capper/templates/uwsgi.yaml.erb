@@ -1,0 +1,10 @@
+uwsgi:
+  master: 1
+  processes: <%= uwsgi_worker_processes %>
+  home: <%= deploy_to %>
+  socket: <%= pid_path %>/uwsgi.sock
+  pidfile: <%= uwsgi_pidfile %>
+  pythonpath: <%= current_path %>
+  env: DJANGO_SETTINGS_MODULE=<%= application %>.settings
+  module: django.core.handlers.wsgi:WSGIHandler()
+  stats: <%= pid_path %>/uwsgi_stats.sock
