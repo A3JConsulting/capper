@@ -11,7 +11,7 @@
 
   after 'deploy:setup', 'drupal:setup'
 
-  after "deploy:create_symlink", "drupal:finalize_update"
+  after "deploy:finalize_update", "drupal:finalize_update"
 
   set :shared_children, ['files', 'private']
 
@@ -35,7 +35,6 @@
     end
 
     task :setup, :except => { :no_release => true } do
-      p
       sub_dirs = shared_children.map { |d| File.join(shared_path, d) }
       run "mkdir -p #{sub_dirs.join(' ')}"
       run "chmod 2775 #{sub_dirs.join(' ')}"
