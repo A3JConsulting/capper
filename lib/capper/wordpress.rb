@@ -12,8 +12,8 @@ namespace :wordpress do
         # Fetch and install wordpress core
         run "mkdir -p #{shared_path}/wp-core"
         run "wget #{wp_tarball_url} -O #{shared_path}/wp-core/wp.tgz"
-        run "cd #{shared_path}/wp-core && tar xzf wp.tgz"
-        run "rm -f #{shared_path}wp.tgz"
+        run "cd #{shared_path}/wp-core && tar xzf --strip-components 1 wp.tgz"
+        run "rm -f #{shared_path}/wp.tgz"
     end
 
     task :apply_config, :roles => :app, :except => { :no_release => true } do
