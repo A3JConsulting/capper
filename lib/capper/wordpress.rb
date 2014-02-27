@@ -1,7 +1,7 @@
 after 'deploy:setup', 'wordpress:setup'
 after "deploy:finalize_update", "wordpress:finalize_update"
 
-_cset :wordpress_tarball_url, "http://sv.wordpress.org/wordpress-3.8.1-sv_SE.tar.gz"
+_cset :wp_tarball_url, "http://sv.wordpress.org/wordpress-3.8.1-sv_SE.tar.gz"
 
 namespace :wordpress do
     task :finalize_update, :roles => :app, :except => { :no_release => true} do
