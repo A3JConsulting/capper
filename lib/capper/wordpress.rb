@@ -4,6 +4,11 @@ after "deploy:finalize_update", "wordpress:finalize_update"
 
 _cset :wp_tarball_url, "http://sv.wordpress.org/wordpress-3.8.1-sv_SE.tar.gz"
 
+set :symlinks, {
+    "uploads" => "wp-content/uploads",
+    "cache" => "wp-content/cache"
+}
+
 namespace :wordpress do
     task :finalize_update, :roles => :app, :except => { :no_release => true} do
         wordpress.apply_config
@@ -17,6 +22,10 @@ namespace :wordpress do
             run "cd #{shared_path}/wp-core && tar xzf wp.tgz --strip-components=1"
             run "rm -f #{shared_path}/wp-core/wp.tgz"
         end
+
+        # Setup shared upload and cache path(s)
+        run "mkdir -p #{shared_path}/uploads"
+        run "mkdir -p #{shared_path}/cache"
     end
 
     task :apply_config, :roles => :app, :except => { :no_release => true } do
