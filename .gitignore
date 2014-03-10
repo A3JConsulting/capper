@@ -47,3 +47,6 @@ pkg
 # For rubinius:
 #*.rbc
 .idea/
+
+# Ignore compiled gem files
+a3j-capper-*.gem
